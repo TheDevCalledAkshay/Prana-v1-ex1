@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>PRANA — Carry calm. Wear meaning.</title>
+  <meta name="description" content="PRANA — modern spiritual wearables. Natural-stone bracelets, malas and meaningful accessories. Carry calm. Wear meaning.">
+  <meta name="theme-color" content="#F6F1E4">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%231F4A38'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%23D8BE86'/%3E%3C/svg%3E">
+
+  <!-- Intro state is decided BEFORE first paint so there is no flash of the homepage.
+       Replays: add ?intro to the URL. Skips: reduced motion, repeat visit this session, ?nointro. -->
+  <script>
+    (function () {
+      var d = document.documentElement, q = location.search, skip = false;
+      try {
+        skip = matchMedia('(prefers-reduced-motion: reduce)').matches ||
+               /[?&]nointro\b/.test(q) ||
+               (sessionStorage.getItem('prana-intro-seen') && !/[?&](intro|calibrate)\b/.test(q));
+      } catch (e) {}
+      if (!skip) {
+        d.classList.add('intro-active');
+        // Fail-safe: whatever happens, never leave a visitor stuck behind the intro.
+        setTimeout(function () { d.classList.remove('intro-active'); }, 14000);
+      }
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&family=Tiro+Devanagari+Sanskrit&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="preload" as="image" href="assets/hand-plate.jpg" fetchpriority="high">
+
+  <!-- Three.js is only used by the intro and is imported on demand by js/intro.js -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ============ CINEMATIC INTRO ============ -->
+  <div id="intro" class="intro" aria-hidden="true">
+    <div class="intro__plate" id="introPlate"></div>
+    <div class="intro__veil" id="introVeil"></div>
+    <canvas class="intro__canvas" id="introCanvas"></canvas>
+    <div class="intro__glint" id="introGlint"></div>
+    <div class="intro__bloom" id="introBloom"></div>
+    <div class="intro__brand" id="introBrand">
+      <span class="intro__word">PRANA</span>
+      <span class="intro__tag">Carry calm. Wear meaning.</span>
+    </div>
+    <button class="intro__skip glass" id="introSkip" type="button">Skip intro</button>
+    <div class="intro__cal" id="introCal" hidden></div>
+  </div>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav glass" id="nav">
+    <a class="nav__logo" href="#top" aria-label="PRANA home">PRANA</a>
+    <nav class="nav__links" id="navLinks" aria-label="Primary">
+      <a href="#collections">Collections</a>
+      <a href="#shop">Shop</a>
+      <a href="#signature">Signature</a>
+      <a href="#story">Our story</a>
+    </nav>
+    <div class="nav__actions">
+      <a class="nav__bag" href="#shop" aria-label="Bag, 0 items">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>
+        <span class="nav__count">0</span>
+      </a>
+      <button class="nav__toggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="top">
+      <div class="hero__glow" aria-hidden="true"></div>
+      <div class="hero__mark" aria-hidden="true" lang="sa">प्राण</div>
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <p class="eyebrow" data-hero>Spiritual wearables</p>
+          <h1 class="hero__title" data-hero>Carry calm.<br><em>Wear meaning.</em></h1>
+          <p class="hero__lede" data-hero>Natural-stone bracelets, malas and keepsakes designed for the way you actually live — quiet enough for every day, beautiful enough to be noticed.</p>
+          <div class="hero__cta" data-hero>
+            <a class="btn btn--solid" href="#shop">Shop the edit</a>
+            <a class="btn btn--ghost" href="#story">Our story</a>
+          </div>
+        </div>
+
+        <div class="hero__visual" data-hero>
+          <div class="arch">
+            <img src="assets/img/hero.webp" alt="Sage jade and moonstone bead bracelet with gold spacers" width="1000" height="1250" fetchpriority="high">
+          </div>
+          <div class="chip chip--a glass">
+            <span class="chip__k">New</span>
+            <span class="chip__v">Jade &amp; Moonstone</span>
+          </div>
+          <div class="chip chip--b glass">
+            <span class="chip__k">Intention</span>
+            <span class="chip__v">Calm</span>
+          </div>
+        </div>
+      </div>
+      <a class="hero__scroll" href="#collections" aria-label="Scroll to collections"><span></span></a>
+    </section>
+
+    <!-- ============ COLLECTIONS ============ -->
+    <section class="section" id="collections">
+      <div class="wrap">
+        <header class="section__head" data-reveal>
+          <p class="eyebrow">Collections</p>
+          <h2 class="h2">Four intentions.<br><em>One daily practice.</em></h2>
+          <p class="section__sub">Choose the quality you want to carry. Each collection is built around stones traditionally associated with it.</p>
+        </header>
+
+        <div class="cards">
+          <a class="card" href="#shop" data-reveal>
+            <img src="assets/img/collection-calm.webp" alt="" loading="lazy" width="1000" height="1250">
+            <div class="card__cap glass glass--dark"><span class="card__n">01</span><h3>Calm</h3><p>Jade &amp; moonstone</p></div>
+          </a>
+          <a class="card" href="#shop" data-reveal>
+            <img src="assets/img/collection-courage.webp" alt="" loading="lazy" width="1000" height="1250">
+            <div class="card__cap glass glass--dark"><span class="card__n">02</span><h3>Courage</h3><p>Tiger’s eye</p></div>
+          </a>
+          <a class="card" href="#shop" data-reveal>
+            <img src="assets/img/collection-clarity.webp" alt="" loading="lazy" width="1000" height="1250">
+            <div class="card__cap glass glass--dark"><span class="card__n">03</span><h3>Clarity</h3><p>Lapis lazuli</p></div>
+          </a>
+          <a class="card" href="#shop" data-reveal>
+            <img src="assets/img/collection-devotion.webp" alt="" loading="lazy" width="1000" height="1250">
+            <div class="card__cap glass glass--dark"><span class="card__n">04</span><h3>Devotion</h3><p>Rudraksha</p></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PRODUCTS ============ -->
+    <section class="section section--sage" id="shop">
+      <div class="wrap">
+        <header class="section__head section__head--row" data-reveal>
+          <div>
+            <p class="eyebrow">The edit</p>
+            <h2 class="h2">Pieces to wear <em>daily.</em></h2>
+          </div>
+          <a class="link-arrow" href="#shop">View all pieces <span aria-hidden="true">→</span></a>
+        </header>
+
+        <div class="grid">
+          <a class="product" href="#shop" data-reveal>
+            <div class="product__media"><img src="assets/img/product-sage-jade.webp" alt="Sage Jade bracelet" loading="lazy" width="1000" height="1250"><span class="tag glass">Calm</span></div>
+            <div class="product__meta"><h3>Sage Jade Bracelet</h3><p>Natural jade · gold-tone spacers</p><span class="price">₹1,499</span></div>
+          </a>
+          <a class="product" href="#shop" data-reveal>
+            <div class="product__media"><img src="assets/img/product-moonstone.webp" alt="Moonstone Halo bracelet" loading="lazy" width="1000" height="1250"><span class="tag glass">Intuition</span></div>
+            <div class="product__meta"><h3>Moonstone Halo</h3><p>Moonstone · gold-tone spacers</p><span class="price">₹1,799</span></div>
+          </a>
+          <a class="product" href="#shop" data-reveal>
+            <div class="product__media"><img src="assets/img/product-tigers-eye.webp" alt="Tiger's Eye strand bracelet" loading="lazy" width="1000" height="1250"><span class="tag glass">Courage</span></div>
+            <div class="product__meta"><h3>Tiger’s Eye Strand</h3><p>Tiger’s eye · gold-tone spacers</p><span class="price">₹1,699</span></div>
+          </a>
+          <a class="product" href="#shop" data-reveal>
+            <div class="product__media"><img src="assets/img/product-lapis.webp" alt="Lapis Lazuli bracelet" loading="lazy" width="1000" height="1250"><span class="tag glass">Clarity</span></div>
+            <div class="product__meta"><h3>Lapis Lazuli Bracelet</h3><p>Lapis lazuli · gold-tone spacers</p><span class="price">₹1,899</span></div>
+          </a>
+          <a class="product" href="#shop" data-reveal>
+            <div class="product__media"><img src="assets/img/product-rose-quartz.webp" alt="Rose Quartz bracelet" loading="lazy" width="1000" height="1250"><span class="tag glass">Love</span></div>
+            <div class="product__meta"><h3>Rose Quartz Bracelet</h3><p>Rose quartz · gold-tone spacers</p><span class="price">₹1,599</span></div>
+          </a>
+          <a class="product" href="#shop" data-reveal>
+            <div class="product__media"><img src="assets/img/product-rudraksha-mala.webp" alt="Rudraksha mala with a gold-tone tassel" loading="lazy" width="1000" height="1250"><span class="tag glass">Devotion</span></div>
+            <div class="product__meta"><h3>Rudraksha Mala</h3><p>Rudraksha · gold-tone tassel</p><span class="price">₹2,499</span></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SIGNATURE ============ -->
+    <section class="signature" id="signature">
+      <div class="signature__bg" aria-hidden="true"></div>
+      <div class="wrap signature__grid">
+        <div class="signature__media" data-reveal>
+          <img src="assets/img/signature.webp" alt="The PRANA Signature strand: moonstone beads with a forest-green focal bead" loading="lazy" width="1000" height="1250">
+        </div>
+        <div class="signature__panel glass glass--dark" data-reveal>
+          <p class="eyebrow eyebrow--gold">The signature strand</p>
+          <h2 class="h2 h2--light">The piece that<br><em>started it all.</em></h2>
+          <p>Pale moonstone, a single forest-green focal bead and fine gold-tone spacers. Designed as the one bracelet you reach for every morning.</p>
+          <dl class="specs">
+            <div><dt>Stones</dt><dd>Moonstone · forest jade</dd></div>
+            <div><dt>Detail</dt><dd>Gold-tone spacers</dd></div>
+            <div><dt>Fit</dt><dd>Stretch, one size</dd></div>
+          </dl>
+          <div class="signature__foot"><span class="price price--light">₹2,199</span><a class="btn btn--gold" href="#shop">Discover</a></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STORY ============ -->
+    <section class="section story" id="story">
+      <div class="wrap">
+        <div class="story__top">
+          <div data-reveal>
+            <p class="eyebrow">Our story</p>
+            <h2 class="h2">Prana is the breath<br><em>beneath every moment.</em></h2>
+          </div>
+          <div class="story__text" data-reveal>
+            <p><em>Prana</em> (प्राण) is the Sanskrit word for breath and life force — the quiet energy under everything you do.</p>
+            <p>We make jewellery for people who want that awareness close at hand: pieces that look contemporary, feel considered, and give you a reason to pause. Not accessories to be saved for occasions, but companions for ordinary days.</p>
+          </div>
+        </div>
+
+        <div class="pillars">
+          <article class="pillar glass" data-reveal>
+            <span class="pillar__n">i</span>
+            <h3>Intention</h3>
+            <p>Every piece is designed around a single quality to carry, so what you wear says something you mean.</p>
+          </article>
+          <article class="pillar glass" data-reveal>
+            <span class="pillar__n">ii</span>
+            <h3>Craft</h3>
+            <p>Natural stones, chosen one by one and strung with care, finished with understated metalwork.</p>
+          </article>
+          <article class="pillar glass" data-reveal>
+            <span class="pillar__n">iii</span>
+            <h3>Calm</h3>
+            <p>Clean lines, soft colour and a considered weight. Made to settle you, not to shout.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="wrap footer__grid">
+      <div class="footer__brand">
+        <a class="footer__logo" href="#top">PRANA</a>
+        <p>Carry calm. Wear meaning.</p>
+      </div>
+      <nav aria-label="Shop">
+        <h4>Shop</h4>
+        <a href="#collections">Collections</a>
+        <a href="#shop">Bracelets</a>
+        <a href="#shop">Malas</a>
+        <a href="#signature">Signature</a>
+      </nav>
+      <nav aria-label="Brand">
+        <h4>Brand</h4>
+        <a href="#story">Our story</a>
+        <a href="#story">Intention &amp; craft</a>
+        <a href="mailto:hello@example.com">Contact</a>
+      </nav>
+      <nav aria-label="Follow">
+        <h4>Follow</h4>
+        <a href="#top">Instagram</a>
+        <a href="#top">Pinterest</a>
+      </nav>
+    </div>
+    <div class="wrap footer__base">
+      <span>© 2026 PRANA. All rights reserved.</span>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </footer>
+</body>
+</html>
